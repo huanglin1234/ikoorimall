@@ -260,6 +260,9 @@ Page({
       id: event.currentTarget.dataset.id
     });
 
+
+dfdfdfdfd
+
     this.getCategoryInfo();
   }, */
   //toggleView
