@@ -19,7 +19,6 @@ Page({
     activeNav: 'recommend',//激活条目
     userInfo: {},
     hasUserInfo: false,
-    //canIUse: wx.canIUse('button.open-type.getUserInfo'),
     scrollTop: 0,
     floorstatus: false,
 
@@ -41,44 +40,6 @@ Page({
     scrollHeight: 0,
     page: 1,
     size: 10000
-  },
-
-  //顶部图片轮播触发事件
-  navigateToActivity(event) {
-    //导航条条目点击处理
-    var alias = event.currentTarget.dataset.alias;
-    if (alias !== this.data.activeNav) {
-      this.setData({
-        activeNav: event.currentTarget.dataset.alias
-      });
-    }
-    var activityType = parseInt(event.currentTarget.dataset.activityType);
-    //var activityId = event.currentTarget.dataset.activityId;
-    var activityTitle = event.currentTarget.dataset.activityTitle;
-    var activityUrl = '';
-    console.log("activityType" + activityType)
-    switch (activityType) {
-      case 2:
-        activityUrl = "/pages/product/preference/preference?activityType=" + activityType;
-        break;
-      case 3:
-        activityUrl = "/pages/product/recommend/recommend?activityType=" + activityType;
-        break;
-      case 4:
-        activityUrl = "/pages/product/second-hand/second-hand?id=" + activityId + '&title=' + activityTitle + '&activityType=' + activityType;
-        break;
-      default:
-        break;
-    }
-    if (activityType == 1) {
-      wx.switchTab({
-        url: '/pages/index/index',
-      })
-    }
-    console.log("activityUrl" + activityUrl);
-    wx.navigateTo({
-      url: activityUrl
-    });
   },
 
   //产品详情点击处理事件
@@ -116,9 +77,9 @@ Page({
     if (app.globalData.userInfo) {
       that.getIndexData();
       // 页面初始化 options为页面跳转所带来的参数
-        that.setData({
-          id: parseInt(1019000)
-        });
+      that.setData({
+        id: parseInt(1019000)
+      });
       that.getCategoryInfo();
 
       that.setData({
@@ -148,7 +109,7 @@ Page({
     }
 
     that.setData({
-      end_time: '2018-02-02'
+      end_time: '2018-02-03'
     })
     countdown(that);
   },
@@ -198,16 +159,15 @@ Page({
   },
   getCategoryInfo: function () {
     let that = this;
-    console.log("id:"+that.data.id)
+    console.log("id:" + that.data.id)
     util.request(api.GoodsCategory, { id: that.data.id })
       .then(function (res) {
-
         if (res.errno == 0) {
           that.setData({
             navList: res.data.brotherCategory,
             currentCategory: res.data.currentCategory
           });
-          console.log("navList:"+that.data.navList)
+          console.log("navList:" + that.data.navList)
           //nav位置
           let currentIndex = 0;
           let navListCount = that.data.navList.length;
@@ -226,7 +186,6 @@ Page({
         } else {
           //显示错误信息
         }
-
       });
   },
 
@@ -240,31 +199,6 @@ Page({
       });
   },
 
- /*  switchCate: function (event) {
-    if (this.data.id == event.currentTarget.dataset.id) {
-      return false;
-    }
-    var that = this;
-    var clientX = event.detail.x;
-    var currentTarget = event.currentTarget;
-    if (clientX < 60) {
-      that.setData({
-        scrollLeft: currentTarget.offsetLeft - 60
-      });
-    } else if (clientX > 330) {
-      that.setData({
-        scrollLeft: currentTarget.offsetLeft
-      });
-    }
-    this.setData({
-      id: event.currentTarget.dataset.id
-    });
-
-
-dfdfdfdfd
-
-    this.getCategoryInfo();
-  }, */
   //toggleView
   toggleView: function (event) {
     console.log("toggleView id:" + event.currentTarget.dataset.id)
@@ -277,21 +211,13 @@ dfdfdfdfd
     that.setData({
       currentIndex
     })
-    this.setData({
+    that.setData({
       id: event.currentTarget.dataset.id
     });
 
-    this.getCategoryInfo();
+    that.getCategoryInfo();
   },
-  //swiper切换
-  toggleSwiper: function (event) {
-    let that = this;
-    let nowRole = that.data;
-    nowRole = event.detail.current;
-    that.setData({
-      nowRole
-    })
-  },
+
   //下拉刷新
   onPullDownRefresh: function () {
     console.log("下拉刷新")

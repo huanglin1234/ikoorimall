@@ -1,10 +1,7 @@
 <!--index.wxml-->
 <view>
-  <view class="list-tab flexR" catchtap='toggleView'>
-    <view wx:for="{{navList}}" class="{{ id == item.id ? 'checked-item' : ''}}" data-id="{{item.id}}" data-index="{{index}}"  style="background-color:#f7f7f7;padding:8rpx 0;">{{item.name}}</view>
-  <!--   <view class="{{nowRole==1?'checked-item':''}}" data-index="1" style="background-color:#f7f7f7;padding:8rpx 0;">驿站优选</view>
-    <view class="{{nowRole==2?'checked-item':''}}" data-index="2" style="background-color:#f7f7f7;padding:8rpx 0;">业主推荐</view>
-    <view class="{{nowRole==3?'checked-item':''}}" data-index="3" style="background-color:#f7f7f7;padding:8rpx 0;">邻居二手</view> -->
+  <view class="list-tab flexR" >
+    <scroll-view scroll-x wx:for="{{navList}}" wx:key="{{item.id}}" class="{{id == item.id ? 'checked-item' : ''}}" data-id="{{item.id}}" data-index="{{index}}"  style="background-color:#f7f7f7;padding:8rpx 0;" catchtap='toggleView'>{{item.name}}</scroll-view>
   </view>
   <!--列表展示  -->
   <swiper bindchange="toggleSwiper" current='{{currentIndex}}' style="height:{{winHeight}}px;">
@@ -26,13 +23,13 @@
             <text>限时团购</text>
           </view>
           <view class="zw-proul2">
-            <view class="zw-proli2" bindtap="navigateToProduct" data-activity-id="11" data-activity-type="1" wx:for="{{4}}">
-              <image src="/images/product1.jpg" alt=""></image>
-              <view class="zw-proli-tips">猕猴桃</view>
+            <view class="zw-proli2" bindtap="navigateToProduct" data-activity-id="iitem.id" data-activity-type="1" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
+              <image src="{{iitem.list_pic_url}}" alt=""></image>
+              <view class="zw-proli-tips">{{iitem.name}}</view>
               <view class="zw-proli-info">
                 <view class="price-wrap">
                   ￥
-                  <text class="price">38.00</text>
+                  <text class="price">{{iitem.retail_price}}</text>
                 </view>
                 <view class="buy-time" wx:if="{{total_micro_second<=0}}">剩余时间：已经截止</view>
                 <view class="buy-time" wx:if="{{clock!='已经截止'}}">
@@ -44,7 +41,6 @@
             <view class="zw-banner">
               <image style="width:750rpx; height:376rpx;" src="/images/c2.jpg" alt=""></image>
             </view>
-
           </view>
         </view>
 
@@ -53,26 +49,23 @@
             <text class="title-item">精品秒杀</text>
           </view>
           <view class="zw-proul2">
-            <view class="zw-proli2" wx:for="{{4}}" bindtap="navigateToProduct" data-activity-id="11" data-activity-type="1">
-              <image src="https://img01.camel.com.cn/product/image/1F01018/918b822c-76f0-4f29-b3e2-cced7e961e1d.jpg" alt=""></image>
-              <view class="zw-proli-tips">猕猴桃</view>
+            <view class="zw-proli2" bindtap="navigateToProduct" data-activity-type="1" data-activity-id="iitem.id" data-activity-type="1" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
+              <image src="{{iitem.list_pic_url}}" alt=""></image>
+              <view class="zw-proli-tips">{{iitem.name}}</view>
               <view class="zw-proli-info" style="height:180rpx;">
                 <view class="price-wrap">
                   ￥
-                  <text class="price">38.00</text>
+                  <text class="price">{{iitem.retail_price}}</text>
                 </view>
                 <view class="buy-time" wx:if="{{total_micro_second<=0}}">剩余时间：已经截止</view>
                 <view class="buy-time" wx:if="{{clock!='已经截止'}}">
                   倒计时：{{clock}}
                 </view>
                 <view class="send-time">配送日期：2018-08-12</view>
-                <view class="send-condition">配送条件：满2件</view>
               </view>
             </view>
           </view>
-        </view>
-        <view class="zw-banner">
-          <image style="width:750rpx; height:376rpx;" src="/images/c2.jpg" alt=""></image>
+          
         </view>
       </view>
     </swiper-item>
@@ -91,13 +84,13 @@
             <text>驿站优选</text>
           </view>
           <view class="zw-proul2">
-            <view class="zw-proli2" bindtap='navigateToProduct' data-activity-id="12" data-activity-type="2" wx:for="{{4}}">
-              <image src="/images/product1.jpg" alt=""></image>
-              <view class="zw-proli-tips">猕猴桃</view>
+            <view class="zw-proli2" bindtap='navigateToProduct' data-activity-type="2" data-activity-id="iitem.id"  wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
+              <image src="{{iitem.list_pic_url}}" alt=""></image>
+              <view class="zw-proli-tips">{{iitem.name}}</view>
               <view class="zw-proli-info">
                 <view class="price-wrap">
                   ￥
-                  <text class="price">38.00</text>
+                  <text class="price">{{iitem.retail_price}}</text>
                 </view>
                 <view class="buy-time">预计2018-01-26日后到货</view>
                 <view>现在可下单</view>
@@ -122,13 +115,13 @@
             <text>业主推荐</text>
           </view>
           <view class="zw-proul2">
-            <view class="zw-proli2" wx:for="{{4}}" bindtap="navigateToProduct" data-activity-id="11" data-activity-type="3">
-              <image src="/images/product1.jpg" alt=""></image>
-              <view class="zw-proli-tips">猕猴桃</view>
+            <view class="zw-proli2" data-activity-id="iitem.id"  wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex" bindtap="navigateToProduct" data-activity-type="3">
+              <image src="{{iitem.list_pic_url}}" alt=""></image>
+              <view class="zw-proli-tips">{{iitem.name}}</view>
               <view class="zw-proli-info">
                 <view class="price-wrap">
                   ￥
-                  <text class="price">38.00</text>
+                  <text class="price">{{iitem.retail_price}}</text>
                 </view>
                 <view class="buy-time">
                   质地柔软，口感酸甜，富含丰富维C
@@ -155,13 +148,13 @@
             <text>邻居二手</text>
           </view>
           <view class="zw-proul2">
-            <view class="zw-proli2" wx:for="{{4}}" bindtap="navigateToProduct" data-activity-id="11" data-activity-type="4">
-              <image src="/images/product1.jpg" alt=""></image>
-              <view class="zw-proli-tips">日产 轩逸 2009款</view>
+            <view class="zw-proli2" bindtap="navigateToProduct" data-activity-id="iitem.id"  wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex" data-activity-type="4">
+              <image src="{{iitem.list_pic_url}}" alt=""></image>
+              <view class="zw-proli-tips">{{iitem.name}}</view>
               <view class="zw-proli-info">
                 <view class="price-wrap">
                   ￥
-                  <text class="price">38.00</text>
+                  <text class="price">{{iitem.retail_price}}</text>
                 </view>
                 <view class="buy-time">
                   2010年 | 9.0公里 | 自动

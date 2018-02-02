@@ -108,7 +108,8 @@
   height: 75rpx;
   line-height: 75rpx;
   padding: 0 28rpx;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color:#f3f3f3;
 }
 
 .zw-proul2 {
